@@ -15,15 +15,14 @@ export async function GET(req) {
 
   // Check if the database instance has been initialized
   if (!db) {
-    // If the database instance is not initialized, open the database connection
     db = await open({
-        filename: path.resolve(process.cwd(), "shop.db"),
-        driver: sqlite3.Database,
+      filename: path.resolve(process.cwd(), "shop.db"),
+      driver: sqlite3.Database,
     });
   }
 
   // Perform a database query to retrieve an item based on the id
-  const item = await db.get("SELECT * FROM earrings WHERE id = ?", id);
+  const item = await db.get("SELECT * FROM users WHERE id = ?", id);
 
   // Return the items as a JSON response with status 200
   return new Response(JSON.stringify(item), {

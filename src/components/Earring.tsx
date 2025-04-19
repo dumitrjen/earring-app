@@ -18,17 +18,38 @@ interface Earring {
 const Earrings = () => {
   const [items, setItems] = useState<Earring[]>([]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetch("http://localhost:3000/api", {
+    fetch("http://localhost:3000/api/earrings", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
-      .then((data) => setItems(data))
-      .catch((error) => console.error("Error fetching data:", error));
+      .then((data) => {
+        setItems(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="loader">
+          <div className="loader-inner">
+            <div className="loader-circle"></div>
+            <div className="loader-text">Loading...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const collection = items.map((item) => {
     return (
@@ -39,7 +60,7 @@ const Earrings = () => {
       >
         <div className="relative bg-white shadow-lg rounded-xl overflow-hidden">
           <Image
-            src={item.image_url || "https://i.pinimg.com/736x/0f/38/f6/0f38f6f9bc49a22e55a9650b62cb1884.jpg"}
+            src={item.image_url}
             alt={item.name}
             width={300}
             height={300}
