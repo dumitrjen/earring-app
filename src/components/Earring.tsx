@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Earring {
   id: number;
@@ -15,49 +16,10 @@ interface Earring {
   stock_quantity: number;
 }
 
-const Earrings = () => {
-  const [items, setItems] = useState<Earring[]>([]);
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/api/earrings", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="loader">
-          <div className="loader-inner">
-            <div className="loader-circle"></div>
-            <div className="loader-text">Loading...</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+const Earrings = ({ items }: { items: Earring[] }) => {
   const collection = items.map((item) => {
     return (
-      <a
-        key={item.id}
-        href={`earring-details.html?earring=${item.name}`}
-        className="block"
-      >
+      <Link key={item.id} href={`/item-page/${item.id}`} className="block">
         <div className="relative bg-white shadow-lg rounded-xl overflow-hidden">
           <Image
             src={item.image_url}
@@ -71,21 +33,22 @@ const Earrings = () => {
               {item.name.toUpperCase()}
             </h3>
             <p className="text-gray-600">{item.description}</p>
+            <p className="text-gray-800 font-bold mt-2">
+              ${item.price.toFixed(2)}
+            </p>
           </div>
         </div>
-      </a>
+      </Link>
     );
   });
 
   return (
-    <>
-      <section className="container mx-auto -mt-8 p-16 bg-white shadow-lg rounded-xl max-w-[90%] relative">
-        <h2 className="text-3xl font-semibold text-center mb-8">Collections</h2>
-        <div id="collections-container" className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {collection}
-        </div>
-      </section>
-    </>
+    <section className="container mx-auto -mt-8 p-16 bg-white shadow-lg rounded-xl max-w-[90%] relative">
+      <h2 className="text-3xl font-semibold text-center mb-8">Collections</h2>
+      <div id="collections-container" className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {collection}
+      </div>
+    </section>
   );
 };
 

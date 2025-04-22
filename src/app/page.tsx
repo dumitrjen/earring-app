@@ -1,4 +1,4 @@
-import EarringCards from "@/components/Earring";
+import EarringCollection from "@/components/Earring-Collection";
 
 export default async function Home() {
   return (
@@ -41,7 +41,7 @@ export default async function Home() {
           marginTop: "-100px", // Pull the collections section up to overlap the hero section
         }}
       >
-        <EarringCards />
+        <EarringCollection />
       </div>
     </>
   );
