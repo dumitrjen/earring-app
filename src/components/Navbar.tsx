@@ -15,7 +15,7 @@ export default function Navbar() {
         <Link href="/about" className="text-gray-500 font-semibold">
           About us
         </Link>
-        <Link href="/" className="text-gray-500 font-semibold">
+        <Link href="/basket" className="text-gray-500 font-semibold">
           <ShoppingCartIcon className="h-6 w-6 text-gray-500" />
         </Link>
         <Link

@@ -37,20 +37,21 @@ const LoginPage = () => {
   
       if (data.exists) {
         if (data.user.password === password) {
-          console.log("User basket:", data.user.basket);
-  
-          // Check if the user is an admin
+          localStorage.setItem("userId", data.user.id); // Save user ID for later
+          localStorage.setItem("userName", data.user.name);
+      
           if (data.user.role === "admin") {
-            router.push("/admin-dashboard"); // Redirect to admin dashboard
+            router.push("/admin-dashboard");
           } else {
-            router.push("/"); // Redirect to homepage for regular users
+            router.push("/");
           }
         } else {
           setError("Incorrect password");
         }
-      } else {
-        setError("User does not exist.");
       }
+      else {
+        setError("User not found");
+      }      
     } catch (err) {
       setError("Login failed. Try again.");
       console.error(err);

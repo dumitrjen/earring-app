@@ -45,7 +45,7 @@ export default async function ItemPage({ params }: { params: { id: string } }) {
                 className="w-16 p-2 border rounded-lg text-center"
               />
             </div>
-            <AddToCartButton />
+            <AddToCartButton earringId={earring.id} />
           </div>
         </div>
       </section>
