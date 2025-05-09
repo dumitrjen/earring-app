@@ -11,9 +11,9 @@
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "lucide-react": "^0.488.0",
-    "next": "15.2.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "next": "^15.2.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
